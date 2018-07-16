@@ -54,7 +54,7 @@ public abstract class BaseActicity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
 
-        mContentView = findViewById(android.R.id.content);
+        mContentView = (ViewGroup)findViewById(android.R.id.content);
         //初始化控件
         initView(mContextView);
         //设置监听
@@ -89,16 +89,16 @@ public abstract class BaseActicity extends AppCompatActivity {
     }
 
     private void initView(View view) {
-        ll_base = view.findViewById(R.id.ll_base);
-        tv_title = view.findViewById(R.id.tv_title);
-        iv_back = view.findViewById(R.id.iv_back);
+        ll_base = (LinearLayout) view.findViewById(R.id.ll_base);
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        iv_back = (ImageView) view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        fl_container = view.findViewById(R.id.fl_container);
+        fl_container = (FrameLayout) view.findViewById(R.id.fl_container);
     }
 
     /**
