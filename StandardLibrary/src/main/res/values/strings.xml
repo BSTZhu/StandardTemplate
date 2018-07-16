@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">StandardLibrary</string>
+    <string name="app_name">手机分期购</string>
+
+    <!-- business -->
+    <string name="business_person_name">业务员姓名：</string>
+    <string name="business_commercial_tenant">商&#160;&#160;&#160;&#160;户&#160;&#160;&#160;&#160;名：</string>
+    <string name="business_id_card">身份证号码：</string>
+    <string name="business_history_order">历史订单</string>
+    <string name="business_person_order">个人订单</string>
+
+    <string name="app_cream_photo">拍摄新的照片</string>
 </resources>
