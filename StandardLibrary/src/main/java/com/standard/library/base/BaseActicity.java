@@ -41,8 +41,6 @@ public abstract class BaseActicity extends AppCompatActivity {
         mContentView = (ViewGroup) findViewById(android.R.id.content);
         //初始化base控件
         initBaseView(mContentView);
-        //设置监听
-        setListener();
     }
 
     @Override
@@ -96,6 +94,11 @@ public abstract class BaseActicity extends AppCompatActivity {
         tv_title.setText(title);
     }
 
+    public void setTitleColor(int id) {
+        if (tv_title != null)
+            tv_title.setTextColor(getResources().getColor(id));
+    }
+
     protected void setTitleId(int id) {
         setTitleString(getString(id));
     }
@@ -109,26 +112,11 @@ public abstract class BaseActicity extends AppCompatActivity {
             ll_base.setVisibility(View.GONE);
     }
 
-    public void setTitleColor(int id) {
+    public void setTitleBackground(int id) {
         if (rl_title != null) {
             rl_title.setBackgroundColor(getResources().getColor(id));
         }
     }
-
-    /**
-     * [绑定控件]
-     *
-     * @param resId
-     * @return
-     */
-    protected <T extends View> T $(int resId) {
-        return (T) super.findViewById(resId);
-    }
-
-    /**
-     * [设置监听]
-     */
-    public abstract void setListener();
 
     @Override
     protected void onRestart() {
