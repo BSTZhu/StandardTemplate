@@ -9,15 +9,14 @@
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:background="@color/common_white">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/title_size" />
 
         <ImageView

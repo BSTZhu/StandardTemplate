@@ -4,22 +4,21 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.standard.library.base.BaseActicity;
+import com.standard.template.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActicity {
 
+    private ActivityMainBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        setAllowFullScreen(true);
+        setAllowFullScreen(false);
         setSteepStatusBar(true);
-        setScreenRoate(true);
-    }
-
-    @Override
-    public void initPrams(Bundle bundle) {
-
+        super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setTitleString("首页");
+        setTitleColor(R.color.common_orange);
+        hideBack();
     }
 
     @Override

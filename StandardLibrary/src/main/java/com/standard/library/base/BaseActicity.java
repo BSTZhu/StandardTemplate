@@ -1,6 +1,5 @@
 package com.standard.library.base;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,26 +23,11 @@ import com.standard.library.R;
 public abstract class BaseActicity extends AppCompatActivity {
 
     /**
-     * 是否沉浸状态栏
-     **/
-    private boolean isSetStatusBar = false;
-    /**
-     * 是否允许全屏
-     **/
-    private boolean mAllowFullScreen = false;
-    /**
-     * 是否允许屏幕旋转
-     **/
-    private boolean isAllowScreenRotate = false;
-    /**
-     * 当前Activity渲染的视图View
-     **/
-    private View mContextView = null;
-    /**
      * 日志输出标志
      **/
     protected final String TAG = this.getClass().getSimpleName();
 
+    private RelativeLayout rl_title;
     private TextView tv_title;
     private ImageView iv_back;
     private FrameLayout fl_container;
@@ -53,28 +38,11 @@ public abstract class BaseActicity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
-
-        mContentView = (ViewGroup)findViewById(android.R.id.content);
-        //初始化控件
-        initView(mContextView);
+        mContentView = (ViewGroup) findViewById(android.R.id.content);
+        //初始化base控件
+        initBaseView(mContentView);
         //设置监听
         setListener();
-
-        //是否允许全屏
-        if (mAllowFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
-
-        //是否沉浸状态栏
-        if (isSetStatusBar) {
-            steepStatusBar();
-        }
-
-        //是否允许屏幕旋转
-        if (!isAllowScreenRotate) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
     }
 
     @Override
@@ -88,8 +56,9 @@ public abstract class BaseActicity extends AppCompatActivity {
         }
     }
 
-    private void initView(View view) {
+    private void initBaseView(View view) {
         ll_base = (LinearLayout) view.findViewById(R.id.ll_base);
+        rl_title = (RelativeLayout) view.findViewById(R.id.rl_title);
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         iv_back = (ImageView) view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +82,6 @@ public abstract class BaseActicity extends AppCompatActivity {
             getWindow().addFlags(
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-
     }
 
     protected void showBack() {
@@ -136,12 +104,16 @@ public abstract class BaseActicity extends AppCompatActivity {
         iv_back.setOnClickListener(listener);
     }
 
-    /**
-     * [初始化参数--加载xml视图之前]
-     *
-     * @param bundle
-     */
-    public abstract void initPrams(Bundle bundle);
+    protected void setNoTitle() {
+        if (ll_base != null)
+            ll_base.setVisibility(View.GONE);
+    }
+
+    public void setTitleColor(int id) {
+        if (rl_title != null) {
+            rl_title.setBackgroundColor(getResources().getColor(id));
+        }
+    }
 
     /**
      * [绑定控件]
@@ -157,47 +129,6 @@ public abstract class BaseActicity extends AppCompatActivity {
      * [设置监听]
      */
     public abstract void setListener();
-
-    /**
-     * [页面跳转]
-     *
-     * @param clz
-     */
-    public void startActivity(Class<?> clz) {
-        startActivity(new Intent(this, clz));
-    }
-
-    /**
-     * [携带数据的页面跳转]
-     *
-     * @param clz
-     * @param bundle
-     */
-    public void startActivity(Class<?> clz, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setClass(this, clz);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
-    }
-
-    /**
-     * [含有Bundle通过Class打开编辑界面]
-     *
-     * @param cls
-     * @param bundle
-     * @param requestCode
-     */
-    public void startActivityForResult(Class<?> cls, Bundle bundle,
-                                       int requestCode) {
-        Intent intent = new Intent();
-        intent.setClass(this, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivityForResult(intent, requestCode);
-    }
 
     @Override
     protected void onRestart() {
@@ -259,7 +190,10 @@ public abstract class BaseActicity extends AppCompatActivity {
      * @param allowFullScreen
      */
     public void setAllowFullScreen(boolean allowFullScreen) {
-        this.mAllowFullScreen = allowFullScreen;
+        //是否允许全屏
+        if (allowFullScreen) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
     }
 
     /**
@@ -268,7 +202,10 @@ public abstract class BaseActicity extends AppCompatActivity {
      * @param isSetStatusBar
      */
     public void setSteepStatusBar(boolean isSetStatusBar) {
-        this.isSetStatusBar = isSetStatusBar;
+        //是否沉浸状态栏
+        if (isSetStatusBar) {
+            steepStatusBar();
+        }
     }
 
     /**
@@ -277,6 +214,9 @@ public abstract class BaseActicity extends AppCompatActivity {
      * @param isAllowScreenRotate
      */
     public void setScreenRoate(boolean isAllowScreenRotate) {
-        this.isAllowScreenRotate = isAllowScreenRotate;
+        //是否允许屏幕旋转
+        if (!isAllowScreenRotate) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 }
