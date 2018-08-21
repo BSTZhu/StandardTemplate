@@ -1,4 +1,4 @@
-package com.standard.library.utils;
+package com.standard.library.utils.basic;
 
 import android.animation.ObjectAnimator;
 import android.view.View;

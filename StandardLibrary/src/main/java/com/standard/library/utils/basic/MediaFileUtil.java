@@ -1,4 +1,4 @@
-package com.standard.library.utils;
+package com.standard.library.utils.basic;
 
 import java.util.HashMap;
 import java.util.Iterator;

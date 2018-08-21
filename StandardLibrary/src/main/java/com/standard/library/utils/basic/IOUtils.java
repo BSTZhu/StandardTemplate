@@ -1,4 +1,4 @@
-package com.standard.library.utils;
+package com.standard.library.utils.basic;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class IOUtils {
         }
     }
 
-    public static void closeQuietly(final Closeable closeable) {
+    private static void closeQuietly(final Closeable closeable) {
         try {
             if (closeable != null) {
                 closeable.close();
